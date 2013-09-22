@@ -6,13 +6,15 @@
 </head>
 <body>
   <div ng-app="myApp">
-    My favorite childhood movie: {{ movie }}
+    <div ng-controller="MyController">
+      My favorite childhood movie: {{ movie }}
+    </div>
   </div>
 
   <script>
     angular.module("myApp", [])
-    .run(['$rootScope', function($rootScope) {
-      $rootScope.movie = "Duck Tails";
+    .controller("MyController", ['$scope', function($scope) {
+      $scope.movie = "Duck Tails";
     }]);
   </script>
 </body>
