@@ -9,16 +9,6 @@
     <h5>{{ clock }}</h5>
   </div>
 
-  <script>
-    function MyController($scope) {
-      var updateClock = function() {
-        $scope.clock = new Date();
-      };
-      setInterval(function() {
-        $scope.$apply(updateClock);
-      }, 1000)
-      updateClock();
-    }
-  </script>
+<script src="js/app.js"></script>
 </body>
 </html>
