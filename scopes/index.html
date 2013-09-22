@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head>
+  <title>Scopes Example</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular.js"></script>
+</head>
+<body>
+  <div ng-app="myApp">
+    My favorite childhood movie: {{ movie }}
+  </div>
+
+  <script>
+    angular.module("myApp", [])
+    .run(['$rootScope', function($rootScope) {
+      $rootScope.movie = "Duck Tails";
+    }]);
+  </script>
+</body>
+</html>
