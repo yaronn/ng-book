@@ -1,6 +1,9 @@
 function MyController($scope) {
+  $scope.clock = {
+    now: new Date()
+  };
   var updateClock = function() {
-    $scope.clock = new Date();
+    $scope.clock.now = new Date();
   };
   setInterval(function() {
     $scope.$apply(updateClock);
