@@ -16,7 +16,7 @@
       <h4>Write some Javascript</h4>
       <textarea ng-model="email.rawJs"></textarea>
       <pre ng-bind="email.jsBody"></pre>
-      <a ng-click="runJs()">Run</a>
+      <button ng-click="runJs()">Run</button>
     </div>
   </div>
 
@@ -54,10 +54,8 @@
           $scope.trustedContent = 
             $scope.getTrusted
           $scope.runJs = function() {
-            console.log("Run", $scope.email.jsBody.toString());
             eval($scope.email.jsBody.toString());
           }
-          $scope.movie = "Duck Tails";
     }]);
   </script>
 </body>
