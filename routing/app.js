@@ -17,7 +17,9 @@ angular.module('myApp', ['ngRoute'])
     })
     .otherwise({redirectTo: '/'});
 }])
+.controller('HomeController', function($scope) {
 
-.controller('InboxController', function($scope, $routeParams) {
+})
+.controller('InboxController', function($scope, $routeParams, $location) {
   $scope.name = $routeParams.name;
 });
