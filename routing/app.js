@@ -22,6 +22,6 @@ angular.module('myApp', ['ngRoute'])
   // define controller to prevent console error
 })
 
-.controller('InboxController', function($scope, $routeParams) {
+.controller('InboxController', function($scope, $routeParams, $location) {
   $scope.name = $routeParams.name;
 });
