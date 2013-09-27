@@ -8,4 +8,8 @@ angular.module('myApp', ['ngRoute'])
         <a href="#inbox/ari">View Your Inbox</a>\
       '
     });
-}]);
+}])
+
+.controller('HomeController', function($scope) {
+
+});
