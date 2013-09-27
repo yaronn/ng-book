@@ -41,5 +41,29 @@ angular.module('myApp', ['ui.router'])
       $scope.inboxId = $stateParams.inboxId;
     }
   });
+})
+// end demo
+
+// visit index.html#/inbox2/anything for nested routes demo
+.config(function($stateProvider, $urlRouterProvider) {
+  $stateProvider
+    .state('inbox2', {
+      url: '/inbox2/:inboxId',
+      template: '\
+        <div>\
+          <h1>Welcome to your inbox</h1>\
+          <a ui-sref="inbox2.priority">Show priority</a>\
+          <div ui-view></div>\
+        </div>\
+      ',
+      controller: function($scope, $stateParams) {
+        $scope.inboxId = $stateParams.inboxId;
+      }
+    })
+    .state('inbox2.priority', {
+      url: '/priority',
+      template: '<h2>Your priority inbox</h2>'
+    });
 });
 // end demo
+
