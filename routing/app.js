@@ -18,6 +18,10 @@ angular.module('myApp', ['ngRoute'])
     .otherwise({redirectTo: '/'});
 }])
 
+.controller('HomeController', function($scope) {
+  // define controller to prevent console error
+})
+
 .controller('InboxController', function($scope, $routeParams) {
   $scope.name = $routeParams.name;
 });
