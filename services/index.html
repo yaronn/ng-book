@@ -1,0 +1,25 @@
+<!doctype html>
+<html ng-app="myApp">
+<head>
+  <title>Angular UI Wizard Signup Example</title>
+</head>
+<body>
+
+<div ng-controller="ServiceController">
+  <label for="username">Type in a Github username</label>
+  <input type="text"
+         placeholder="Enter a Github username"
+         ng-model="username"/>
+
+  <ul>
+    <li ng-repeat="events in events">
+      {{ event.actor.login }} {{ event.repo.name }}
+    </li>
+  </ul>
+</div>
+
+<script src="bower_components/angular/angular.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
