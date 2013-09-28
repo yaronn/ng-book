@@ -64,6 +64,38 @@ angular.module('myApp', ['ui.router'])
       url: '/priority',
       template: '<h2>Your priority inbox</h2>'
     });
-});
+})
 // end demo
 
+// visit index.html#/inbox3/anything for onEnter/onExit demo
+.config(function($stateProvider, $urlRouterProvider) {
+  $stateProvider
+    .state('inbox3', {
+      url: '/inbox3/:inboxId',
+      template: '\
+        <div>\
+          <h1>Welcome to your inbox</h1>\
+          <a ui-sref="inbox3.priority">Show priority</a>\
+          <div ui-view></div>\
+        </div>\
+      ',
+      controller: function($scope, $stateParams) {
+        $scope.inboxId = $stateParams.inboxId;
+      }
+    })
+    .state('inbox3.priority', {
+      url: '/priority',
+      template: '\
+        <h2>Your priority inbox</h2>\
+        <a ui-sref="inbox3">Hide priority</a>\
+      ',
+      onEnter: function($window) {
+        $window.alert('Hello. Welcome to your priority inbox');
+      },
+      onExit: function($window) {
+        $window.alert('Goodbye. Hiding your priority inbox. Come back soon!');
+      }
+    });
+});
+// end demo
+// end demo
