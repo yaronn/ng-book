@@ -29,13 +29,15 @@
     .controller('ServiceController', ['$scope', '$timeout', 'githubService',
       function($scope, $timeout, githubService) {
         $scope.events = null;
+        $scope.setUsername = null;
 
         var timeout;
         $scope.$watch('username', function(newUsername) {
           if (newUsername) {
             if (timeout) $timeout.cancel(timeout);
             timeout = $timeout(function() {
-              githubService.events(newUsername)
+              $scope.setUsername = githubService.setUsername(newUsername);
+              githubService.events()
                 .success(function(data, status, headers) {
                   $scope.events = data.data;
                 });
@@ -46,23 +48,26 @@
 
     angular.module('myApp.services', [])
     .factory('githubService', ['$http', function($http) {
-      var githubUrl = 'https://api.github.com';
+      var githubUrl = 'https://api.github.com',
+          githubUsername;
 
-      var runUserRequest = function(username, path) {
+      var runUserRequest = function(path) {
         // Return the promise from the $http service
         // that calls the Github API using JSONP
         return $http({
           method: 'JSONP',
           url: githubUrl + '/users/' +
-                username + '/' +
+                githubUsername + '/' +
                 path + '?callback=JSON_CALLBACK'
         });
-      }
-      // Return the service object with a single function
-      //  events
+      };
+
       return {
-        events: function(username) {
-          return runUserRequest(username, 'events');
+        events: function() {
+          return runUserRequest('events');
+        },
+        setUsername: function(username) {
+          githubUsername = username;
         }
       };
     }]);
