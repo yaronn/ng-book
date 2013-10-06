@@ -1,25 +1,72 @@
 <!doctype html>
 <html ng-app="myApp">
 <head>
-  <title>Github Service Example</title>
+  <title>Services Example</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.js"></script>
 </head>
 <body>
 
-<div ng-controller="ServiceController">
-  <label for="username">Type in a Github username</label>
-  <input type="text"
-         placeholder="Enter a Github username"
-         ng-model="username"/>
+  <div ng-controller="ServiceController">
+    <label for="username">Type in a GitHub username</label>
+    <input type="text"
+          ng-model="username"
+          placeholder="Enter a GitHub username" />
+    <ul>
+      <li ng-repeat="event in events">
+        <!--
+          event.actor and event.repo are returned
+          by the github API. To view the raw
+          API, uncomment the next line:
+        -->
+        <!-- {{ event | json }} -->
+        {{ event.actor.login }} {{ event.repo.name }}
+      </li>
+    </ul>
+  </div>
 
-  <ul>
-    <li ng-repeat="events in events">
-      {{ event.actor.login }} {{ event.repo.name }}
-    </li>
-  </ul>
-</div>
+  <script>
+    angular.module('myApp', ['myApp.services'])
+    .controller('ServiceController', ['$scope', '$timeout', 'githubService',
+      function($scope, $timeout, githubService) {
+        $scope.events = null;
 
-<script src="bower_components/angular/angular.js"></script>
-<script src="app.js"></script>
+        var timeout;
+        $scope.$watch('username', function(newUsername) {
+          if (newUsername) {
+            if (timeout) $timeout.cancel(timeout);
+            timeout = $timeout(function() {
+              githubService.events(newUsername)
+                .success(function(data, status, headers) {
+                  $scope.events = data.data;
+                });
+            }, 350);
+          }
+        });
+    }]);
+
+    angular.module('myApp.services', [])
+    .factory('githubService', ['$http', function($http) {
+      var githubUrl = 'https://api.github.com';
+
+      var runUserRequest = function(username, path) {
+        // Return the promise from the $http service
+        // that calls the Github API using JSONP
+        return $http({
+          method: 'JSONP',
+          url: githubUrl + '/users/' +
+                username + '/' +
+                path + '?callback=JSON_CALLBACK'
+        });
+      }
+      // Return the service object with a single function
+      //  events
+      return {
+        events: function(username) {
+          return runUserRequest(username, 'events');
+        }
+      };
+    }]);
+  </script>
 
 </body>
 </html>
