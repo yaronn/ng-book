@@ -71,6 +71,33 @@
         }
       };
     }]);
+
+    var githubDecorator = function($delegate) {
+      var events = function(path) {
+        var startedAt = new Date();
+        var result = $delegate.events(path);
+
+        // Events is a promise
+        result.then(function() {
+          console.log("Fetching events" +
+              " took " +
+              (new Date() - startedAt) + "ms");
+        });
+        return result;
+      }
+
+      return {
+        setUsername: function(username) {
+          return $delegate.setUsername(username);
+        },
+        events: events
+      };
+    };
+
+    angular.module('myApp')
+    .config(function($provide) {
+      $provide.decorator('githubService', githubDecorator);
+    })
   </script>
 
 </body>
