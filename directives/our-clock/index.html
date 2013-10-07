@@ -1,0 +1,79 @@
+<!doctype html>
+<html ng-app="myApp">
+<head>
+  <title>Clock Directive</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.js"></script>
+</head>
+<body>
+
+  <div ng-controller="OurController">
+    <div our-clock ng-model="city.name"></div>
+  </div>
+
+  <script>
+    angular.module('myApp', [])
+    .controller('OurController', function($scope) {
+
+      $scope.clock = {
+        now: null
+      }
+
+      $scope.city = {
+        name: 'San Francisco'
+      }
+
+      function timeWithZone(zonesAway) {
+        if (!zonesAway) return new Date();
+        return new Date() + (3600000 * zonesAway);
+      }
+      $scope.cityTime = function() {
+        if ($scope.city.name === "San Francisco") return timeWithZone();
+        if ($scope.city.name === "Denver") return timeWithZone(1);
+        if ($scope.city.name === "Chicago") return timeWithZone(2);
+        if ($scope.city.name === "New York") return timeWithZone(3);
+      };
+
+      var updateClock = function() {
+        $scope.clock.now = $scope.cityTime();
+      };
+      setInterval(function() {
+        $scope.$apply(updateClock);
+      }, 1000);
+      updateClock();
+
+      $scope.$watch('city.name', function(newVal, $scope) {
+        if (newVal) {
+          $scope.city = {};
+        } else {
+          $scope.city.name = newVal;
+          updateClock();
+        }
+      })
+
+
+    })
+    .directive('ourClock', function() {
+      return {
+        restrict: 'A',
+        require: 'ngModel',
+        template: '\
+          <label>\
+            Enter one of the following cities:\
+            <ul>\
+              <li>San Francisco</li>\
+              <li>Denver</li>\
+              <li>Chicago</li>\
+              <li>New York</li>\
+            </ul>\
+          </label>\
+          <input type="text"\
+                 ng-model="city.name"></input>\
+          <div>Current time for {{ city.name }}</div>\
+          <h1 class="clock">{{ clock.now }}</h1>\
+        '
+      };
+    })
+  </script>
+
+</body>
+</html>
