@@ -13,8 +13,10 @@
   </div>
 
   <script>
-    angular.module('myApp', [])
-    .controller('OurController', function($scope) {})
+    angular.module('myApp', ['myApp.directives'])
+    .controller('OurController', function($scope) {});
+
+    angular.module('myApp.directives', [])
     .directive('ourClock', function() {
       return {
         restrict: 'A',
@@ -86,7 +88,7 @@
           <div ng-transclude></div>\
         '
       };
-    })
+    });
   </script>
 
 </body>
