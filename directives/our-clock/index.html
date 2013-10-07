@@ -7,7 +7,7 @@
 <body>
 
   <div ng-controller="OurController">
-    <div our-clock ng-model="city.name"></div>
+    <div our-clock ng-model="city.name" date-format="mediumTime"></div>
   </div>
 
   <script>
@@ -18,45 +18,54 @@
         restrict: 'A',
         require: 'ngModel',
         controller: function($scope) {
-        $scope.clock = {
-          now: null
-        }
-
-        $scope.city = {
-          name: 'San Francisco'
-        }
-
-        $scope.all_cities = {
-          "San Francisco": 0,
-          "Denver": 1,
-          "Chicago": 2,
-          "New York": 3
-        };
-
-        $scope.tzOffset = 0;
-
-        function timeWithZone() {
-          return (new Date().getTime() + (3600000 * $scope.tzOffset));
-        }
-
-        var updateClock = function() {
-          $scope.clock.now = timeWithZone();
-        };
-      setInterval(function() {
-        $scope.$apply(updateClock);
-      }, 1000);
-      updateClock();
-
-      $scope.$watch('city.name', function(newVal, oldVal) {
-        if (newVal) {
-          $scope.city.name = newVal;
-          if ($scope.all_cities.hasOwnProperty(newVal)) {
-            $scope.tzOffset = $scope.all_cities[newVal];
+          $scope.clock = {
+            now: null
           }
-          updateClock();
-        }
-      });
+
+          $scope.city = {
+            name: 'San Francisco'
+          }
+
+          $scope.all_cities = {
+            "San Francisco": 0,
+            "Denver": 1,
+            "Chicago": 2,
+            "New York": 3
+          };
+
+          $scope.tzOffset = 0;
+
+          function timeWithZone() {
+            return (new Date().getTime() + (3600000 * $scope.tzOffset));
+          }
+
+          $scope.updateClock = function() {
+            $scope.clock.now = timeWithZone();
+          };
+
+          setInterval(function() {
+            $scope.$apply($scope.updateClock);
+          }, 1000);
+          $scope.updateClock();
+
         },
+
+        link: function(scope, ele, attrs, ctrl) {
+          if (attrs.dateFormat)
+            scope.dateFormat = attrs.dateFormat || "mediumTime";
+          else
+            scope.dateFormat = "mediumTime";
+          scope.$watch('city.name', function(newVal, oldVal) {
+            if (newVal) {
+              scope.city.name = newVal;
+              if (scope.all_cities.hasOwnProperty(newVal)) {
+                scope.tzOffset = scope.all_cities[newVal];
+              }
+              scope.updateClock();
+            }
+          });
+        },
+
         template: '\
           <label>\
             Enter one of the following cities:\
@@ -70,7 +79,7 @@
           <input type="text"\
                  ng-model="city.name"></input>\
           <div>Current time for {{ city.name }}</div>\
-          <h1 class="clock">{{ clock.now | date:"mediumTime" }}</h1>\
+          <h1 class="clock">{{ clock.now | date:dateFormat }}</h1>\
         '
       };
     })
