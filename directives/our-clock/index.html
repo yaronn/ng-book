@@ -7,7 +7,9 @@
 <body>
 
   <div ng-controller="OurController">
-    <div our-clock ng-model="city.name" date-format="mediumTime"></div>
+    <div our-clock ng-model="city.name" date-format="mediumTime">
+      <h3>The time is...</h3>
+    </div>
   </div>
 
   <script>
@@ -17,6 +19,7 @@
       return {
         restrict: 'A',
         require: 'ngModel',
+        transclude: true,
         controller: function($scope) {
           $scope.clock = {
             now: null
@@ -80,6 +83,7 @@
                  ng-model="city.name"></input>\
           <div>Current time for {{ city.name }}</div>\
           <h1 class="clock">{{ clock.now | date:dateFormat }}</h1>\
+          <div ng-transclude></div>\
         '
       };
     })
