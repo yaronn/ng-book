@@ -12,50 +12,51 @@
 
   <script>
     angular.module('myApp', [])
-    .controller('OurController', function($scope) {
+    .controller('OurController', function($scope) {})
+    .directive('ourClock', function() {
+      return {
+        restrict: 'A',
+        require: 'ngModel',
+        controller: function($scope) {
+        $scope.clock = {
+          now: null
+        }
 
-      $scope.clock = {
-        now: null
-      }
+        $scope.city = {
+          name: 'San Francisco'
+        }
 
-      $scope.city = {
-        name: 'San Francisco'
-      }
+        $scope.all_cities = {
+          "San Francisco": 0,
+          "Denver": 1,
+          "Chicago": 2,
+          "New York": 3
+        };
 
-      function timeWithZone(zonesAway) {
-        if (!zonesAway) return new Date();
-        return new Date() + (3600000 * zonesAway);
-      }
-      $scope.cityTime = function() {
-        if ($scope.city.name === "San Francisco") return timeWithZone();
-        if ($scope.city.name === "Denver") return timeWithZone(1);
-        if ($scope.city.name === "Chicago") return timeWithZone(2);
-        if ($scope.city.name === "New York") return timeWithZone(3);
-      };
+        $scope.tzOffset = 0;
 
-      var updateClock = function() {
-        $scope.clock.now = $scope.cityTime();
-      };
+        function timeWithZone() {
+          return (new Date().getTime() + (3600000 * $scope.tzOffset));
+        }
+
+        var updateClock = function() {
+          $scope.clock.now = timeWithZone();
+        };
       setInterval(function() {
         $scope.$apply(updateClock);
       }, 1000);
       updateClock();
 
-      $scope.$watch('city.name', function(newVal, $scope) {
+      $scope.$watch('city.name', function(newVal, oldVal) {
         if (newVal) {
-          $scope.city = {};
-        } else {
           $scope.city.name = newVal;
+          if ($scope.all_cities.hasOwnProperty(newVal)) {
+            $scope.tzOffset = $scope.all_cities[newVal];
+          }
           updateClock();
         }
-      })
-
-
-    })
-    .directive('ourClock', function() {
-      return {
-        restrict: 'A',
-        require: 'ngModel',
+      });
+        },
         template: '\
           <label>\
             Enter one of the following cities:\
@@ -69,7 +70,7 @@
           <input type="text"\
                  ng-model="city.name"></input>\
           <div>Current time for {{ city.name }}</div>\
-          <h1 class="clock">{{ clock.now }}</h1>\
+          <h1 class="clock">{{ clock.now | date:"mediumTime" }}</h1>\
         '
       };
     })
