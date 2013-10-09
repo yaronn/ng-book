@@ -1,0 +1,38 @@
+<!doctype html>
+<html ng-app="myApp">
+<head>
+  <link rel="stylesheet" href="http://cdn.jsdelivr.net/foundation/4.3.2/css/foundation.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.js"></script>
+</head>
+<body ng-controller="MainController">
+
+  <h1 ng-bind="greeting"></h1>
+
+  <div ng-controller="FormController">
+    <input type="text" ng-model="person.name" placeholder="Your name"/>
+    <input type="text" ng-model="person.city" placeholder="Your city"/>
+  </div>
+
+  <h2>my name is {{ person.name }} and I live in</h2>
+  <h3 ng-bind="person.city"></h3>
+
+
+  <script>
+    angular.module('myApp', [])
+
+    .controller('MainController', function($scope) {
+      $scope.greeting = "Hi, ";
+      $scope.person = { // use an object for best practice, copy by reference
+        name: null, // set null for best practice
+        city: null
+      }
+    })
+
+    .controller("FormController", function($scope) {
+      // $scope.person.name is set here, but displayed in the main controller
+    })
+
+  </script>
+
+</body>
+</html>
