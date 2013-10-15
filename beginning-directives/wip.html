@@ -1,0 +1,38 @@
+<!doctype html>
+<html ng-app="myApp">
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.js"></script>
+</head>
+<body>
+
+  <input type="text"
+         ng-model="parsedExpression" />
+
+  <div my-directive
+       my-url="http://google.com"
+       my-link-text="The magic number is {{magicNumber = parsedExpression}}">
+  </div>
+
+  <script>
+    angular.module('myApp', [])
+
+    .directive('myDirective', function() {
+      return {
+        restrict: 'AE',
+        replace: true,
+        scope: {
+          myUrl: '@',
+          myLinkText: '@'
+        },
+        template: '<a href="{{myUrl}}">{{myLinkText}} --- {{magicNumber}}</a>'
+      }
+    })
+  </script>
+
+</body>
+</html>
+
+<!-- controller: function($scope) {
+  $scope.myUrl = 'http://google.com';
+  $scope.myLinkText = 'Click me';
+} -->
