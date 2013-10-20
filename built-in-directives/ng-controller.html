@@ -1,0 +1,21 @@
+<!doctype html>
+<html ng-app="myApp">
+<head>
+  <link rel="stylesheet" href="http://cdn.jsdelivr.net/foundation/4.3.2/css/foundation.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.js"></script>
+</head>
+<body>
+
+  <div ng-controller="MyController">
+    <h2>Hello {{ name }}</h2>
+  </div>
+
+  <script>
+    angular.module('myApp', [])
+    .controller('MyController', function($scope) {
+      $scope.name = "Ari";
+    });
+  </script>
+
+</body>
+</html>
