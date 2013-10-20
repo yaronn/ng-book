@@ -14,6 +14,8 @@ angular.module('myApp')
       subject: 'Conference speaking gig'
     }
   ];
+
+  $scope.message = "Welcome";
 })
 .controller('DashboardCtrl', function($scope) {
 });
