@@ -13,5 +13,8 @@
     "app/bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "angular-gettext": "~0.1.4"
+  }
 }
