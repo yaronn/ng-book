@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>C1F3707A-116E-4025-A30D-219A1B0188BD</string>
+	<key>IDESourceControlProjectName</key>
+	<string>GapApp</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>B71235ED-E3D1-4C3F-ADB6-C4B6D0805716</key>
+		<string>ssh://github.com/fullstackio/ng-book.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>mobile/gapapp/platforms/ios/GapApp.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>B71235ED-E3D1-4C3F-ADB6-C4B6D0805716</key>
+		<string>../../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/fullstackio/ng-book.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>B71235ED-E3D1-4C3F-ADB6-C4B6D0805716</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>B71235ED-E3D1-4C3F-ADB6-C4B6D0805716</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ng-book-code</string>
+		</dict>
+	</array>
+</dict>
+</plist>

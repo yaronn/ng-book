@@ -38,9 +38,10 @@
        ga('create', 'UA-XXXXX-X');
        ga('send', 'pageview');
     </script>
-
+    <!-- build:js scripts/library.js -->
     <script src="bower_components/jquery/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
+    <!-- endbuild -->
 
         <!-- build:js scripts/plugins.js -->
         <script src="bower_components/bootstrap-sass/js/bootstrap-affix.js"></script>
@@ -64,9 +65,13 @@
         <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
         <!-- endbuild -->
 
+        <script src="cordova.js"></script>
+
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/services/init.js"></script>
+        <script src="scripts/services/cordova.js"></script>
         <!-- endbuild -->
 </body>
 </html>

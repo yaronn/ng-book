@@ -3,15 +3,16 @@
 angular.module('gapappApp', [
   'ngCookies',
   'ngResource',
-  'ngSanitize'
+  'ngSanitize',
+  'gapappApp.services'
 ])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-  });
+.config(function ($routeProvider) {
+  $routeProvider
+    .when('/', {
+      templateUrl: 'views/main.html',
+      controller: 'MainCtrl'
+    })
+    .otherwise({
+      redirectTo: '/'
+    });
+});

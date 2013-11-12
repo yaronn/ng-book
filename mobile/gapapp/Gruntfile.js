@@ -8,7 +8,8 @@
 // 'test/spec/**/*.js'
 
 module.exports = function (grunt) {
-  var path = require('path');
+  var path = require('path'),
+      cordova = require('cordova');
 
   var cordova_cmd = function(cmd) {
     var target = grunt.option('target') || "ios";
@@ -24,7 +25,7 @@ module.exports = function (grunt) {
     yeoman: {
       // configurable paths
       app: require('./bower.json').appPath || 'app',
-      dist: 'dist'
+      dist: 'www'
     },
     watch: {
       coffee: {
@@ -258,7 +259,7 @@ module.exports = function (grunt) {
           cwd: '<%= yeoman.app %>',
           dest: '<%= yeoman.dist %>',
           src: [
-            '*.{ico,png,txt}',
+            '*.{ico,png,txt,xml}',
             '.htaccess',
             'bower_components/**/*',
             'images/{,*/}*.{gif,webp}',
@@ -332,27 +333,24 @@ module.exports = function (grunt) {
     },
     shell: {
       build: {
-        command: cordova_cmd("build"),
-        options: {
-          execOptions: {
-            maxBuffer: NaN,
-          }
-        }
+        command: 'cordova build && ' + 
+          cordova_cmd('emulate')
       },
-      emulate: {
-        command: cordova_cmd("emulate"),
-        options: {
-          execOptions: {
-            maxBuffer: NaN,
-          }
-        }
+      run: {
+        command: 'cordova build &&' +
+          cordova_cmd("run")
       }
     }
   });
   
   grunt.registerTask('devemulate', [
+    'build',
     'shell:build',
-    'shell:emulate'
+  ]);
+
+  grunt.registerTask('devrun', [
+    'build',
+    'shell:run'
   ]);
 
   grunt.registerTask('server', function (target) {
