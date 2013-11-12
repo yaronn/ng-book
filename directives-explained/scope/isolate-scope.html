@@ -7,9 +7,12 @@
 
 
   <div ng-init="myProperty = 'wow, this is cool'"></div>
-  Outside myDirective: {{ myProperty }}
+  Surrounding scope: {{ myProperty }}
+  <div my-inherit-scope-directive="SomeCtrl">
+    Inside an directive with inherited scope: {{ myProperty }}
+  </div>
   <div my-directive>
-    Inside myDirective: {{ myProperty }}
+    Inside myDirective, isolate scope: {{ myProperty }}
   <div>
 
   <script>
@@ -18,6 +21,12 @@
       return {
         restrict: 'A',
         scope: {}
+      };
+    })
+    .directive('myInheritScopeDirective', function() {
+      return {
+        restrict: 'A',
+        scope: true
       };
     })
   </script>
